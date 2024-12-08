@@ -11,11 +11,58 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Column(children: <Widget> [
-      ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const ButtonsPage()));}, child: Text('more buttons!')),
-      ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const RestCallPage()));}, child: Text('cats!'))
-    ]));
-    }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Main Page'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Card(
+              elevation: 8,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildButton('More Buttons!', Icons.add_box, () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ButtonsPage()))),
+                    _buildButton('Cats!', Icons.add_card, () => Navigator.push(context, MaterialPageRoute(builder: (context) => const RestCallPage()))),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 24), // Add some space between sections
+            Text(
+              'Welcome to my app!',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButton(String label, IconData icon, VoidCallback onPressed) {
+    return Expanded(
+      flex: 1,
+      child: ElevatedButton.icon(
+        icon: Icon(icon),
+        label: Text(label),
+        onPressed: onPressed,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
