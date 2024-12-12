@@ -22,10 +22,10 @@ class _RestCallPageState extends State<RestCallPage> {
   }
 
   Future<String> fetchCatFact() async {
-    final response = await http.get(Uri.parse('https://cat-fact.herokuapp.com/facts/random'));
+    final response = await http.get(Uri.parse('https://api.chucknorris.io/jokes/random'));
     if (response.statusCode == 200) {
       final parseJson = jsonDecode(response.body);
-      return parseJson["text"];
+      return parseJson["value"];
     }
     return "No cat :C";
   }
